@@ -1,5 +1,5 @@
 {
-    "name": "user/php-crud-music",
+    "name": "peoc0001/php-crud-music",
     "description": "Développement d'une application Web de consultation et modification de morceaux de musique",
     "type": "project",
     "license": "Copyleft",
@@ -10,9 +10,14 @@
     },
     "authors": [
         {
-            "name": "William Peoc'h",
+            "name": "peoc0001",
             "email": "william.peoch@etudiant.univ-reims.fr"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.16"
+    },
+    "require": {
+        "ext-pdo": "*"
+    }
 }
