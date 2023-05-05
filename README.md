@@ -6,6 +6,10 @@ Lancer serveur
 
     php -d display_errors -S localhost:8000 -t public/
 
+ou
+
+    composer linux:start
+
 ### Style de codage
 
 Recherche « fixer » dans les paquets Composer
@@ -24,6 +28,10 @@ Test à blanc de php cs fixer
 
     php vendor/bin/php-cs-fixer fix --dry-run
 
+ou
+
+    composer test:cs
+
 Vérification différence entre les lignes actuellement mauvaise et les lignes corrigés 
 
     php vendor/bin/php-cs-fixer fix --dry-run --diff
@@ -31,4 +39,13 @@ Vérification différence entre les lignes actuellement mauvaise et les lignes c
 Correction des lignes
 
     php vendor/bin/php-cs-fixer fix
+
+ou
+
+    composer fix:cs
+
+
+### Configuration de la base de données
+
+Utilisation du fichier .mypdo.ini ou sont enregistrer les informations nécessaires à la connexion à la base de données
 

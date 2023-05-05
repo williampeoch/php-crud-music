@@ -120,7 +120,6 @@ class WebPage
      */
     public function toHTML(): string
     {
-        $langue = $this->language;
         return "<!DOCTYPE html>\n<html lang=\"fr\">\n<head>\n<meta charset='UTF-8'>\n<meta name='viewport' content='width=device-width, initial-scale=1.0'>\n<title>" . $this->title . "</title>\n" . $this->head . "\n</head>\n<body>\n" . $this->body . "\n</body>\n</html>";
     }
 
