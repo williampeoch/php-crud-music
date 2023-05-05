@@ -8,6 +8,11 @@
             "": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\" : "tests/"
+        }
+    },
     "authors": [
         {
             "name": "peoc0001",
@@ -32,6 +37,8 @@
         "test:cs":
             "php vendor/bin/php-cs-fixer fix --dry-run --diff",
         "fix:cs":
-            "php vendor/bin/php-cs-fixer fix"
+            "php vendor/bin/php-cs-fixer fix",
+        " test:crud":
+            "php vendor/bin/codecept run Crud"
     }
 }

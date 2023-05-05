@@ -27,9 +27,7 @@ class ArtistCollection
 
         $stmt->execute();
         $tableauArtiste = [];
-        foreach ($stmt->fetchAll(PDO::FETCH_CLASS) as $ligne) {
-            $tableauArtiste[] = $ligne->name;
-        }
-        return $tableauArtiste;
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Artist::class);
     }
 }
