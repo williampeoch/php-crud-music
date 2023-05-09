@@ -14,7 +14,8 @@ class AlbumCollection
      * @param int $artisteId
      * @return Album[]
      */
-    public function findByArtistId(int $artisteId) : array {
+    public function findByArtistId(int $artisteId): array
+    {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
             SELECT *
