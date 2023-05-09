@@ -26,7 +26,6 @@ class ArtistCollection
         );
 
         $stmt->execute();
-        $tableauArtiste = [];
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, Artist::class);
     }
