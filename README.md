@@ -49,3 +49,17 @@ ou
 
 Utilisation du fichier .mypdo.ini ou sont enregistrer les informations nécessaires à la connexion à la base de données
 
+### Tests
+
+Test Crud
+
+    composer test:crud
+
+Lancer l'ensemble des tests de Codeception
+
+    composer test:codecept
+
+Lancer les tests de correction de lignes et ceux de Codeception
+
+    composer test
+

@@ -1,8 +1,11 @@
 <?php
+
 namespace Tests\Collection;
+
 use Entity\Artist;
 use Entity\Collection\ArtistCollection;
 use Tests\CrudTester;
+
 class ArtistCollectionCest
 {
     public function findAll(CrudTester $I)
@@ -18,7 +21,7 @@ class ArtistCollectionCest
             ['id' => 6, 'name' => 'ZZ Top'],
         ];
 
-        $artists = (new \Entity\Collection\ArtistCollection)->findAll();
+        $artists = (new \Entity\Collection\ArtistCollection())->findAll();
         $I->assertCount(count($expectedArtists), $artists);
         $I->assertContainsOnlyInstancesOf(Artist::class, $artists);
         foreach ($artists as $index => $artist) {

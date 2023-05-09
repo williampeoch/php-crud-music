@@ -36,6 +36,7 @@ if (isset($_GET['artistId']) && ctype_digit($_GET['artistId'])) {
     $ligne = $pdoArtist->fetch();
     if (!isset($ligne['name'])) {
         http_response_code(404);
+        header('Location: http://localhost:8000/index.php', true, 302);
         exit;
     }
     $nomArtiste = $ligne['name'];
