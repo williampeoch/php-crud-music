@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Entity;
 
 use Database\MyPdo;
+use Entity\Collection\AlbumCollection;
 use Entity\Exception\EntityNotFoundException;
 use PDO;
 
@@ -41,8 +42,19 @@ class Artist
         );
 
         $stmt->execute([$id]);
-        if (($ligne = $stmt->fetchObject(Artist::class)) !== false) {
-            return $ligne;
+        $ligne = $stmt->fetchObject(Artist::class);
+        if (!$ligne) {
+            throw new EntityNotFoundException('Artiste introuvable');
         }
+        return $ligne;
+    }
+
+    /**
+     * @return Album[]
+     */
+    public function getAlbums(): array
+    {
+        $albumsArtiste = new AlbumCollection();
+        return $albumsArtiste->findByArtistId($this->id);
     }
 }

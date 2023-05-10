@@ -8,5 +8,4 @@ use OutOfBoundsException;
 
 class EntityNotFoundException extends OutOfBoundsException
 {
-
 }
