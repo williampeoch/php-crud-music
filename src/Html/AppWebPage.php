@@ -9,10 +9,7 @@ class AppWebPage extends WebPage
     public function __construct(string $title = "")
     {
         parent::__construct($title);
-        $this->appendCssUrl("/css/style.css");
-        $this->appendCss(
-            <<<CSS
-        );
+        $this->appendCssUrl("../src/Html/css/style.css");
     }
 
     public function toHTML(): string
@@ -27,7 +24,7 @@ class AppWebPage extends WebPage
 
         $html .= "<title>". parent::getTitle() ."</title>\n";
         $html .= parent::getHead();
-        
+
         $html .= <<<HTML
         </head>
         <body>
@@ -38,8 +35,9 @@ class AppWebPage extends WebPage
         $html .= <<<HTML
         </header>
         HTML;
-        $html .= "\n" . parent::getBody();
+        $html .= "\n<main class='content'>\n" . parent::getBody() . "</main>\n";
 
+        $html .= "<footer class='footer'>". parent::getLastModification() ."</footer>";
 
         $html .= <<<HTML
         </body>

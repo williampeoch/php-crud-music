@@ -136,6 +136,7 @@ class WebPage
 
     public function getLastModification(): string
     {
+        date_default_timezone_set('Europe/Paris');
         return "Dernière modification : " . date("F d Y H:i:s.", getlastmod());
     }
 
