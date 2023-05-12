@@ -3,54 +3,49 @@
 declare(strict_types=1);
 
 use Database\MyPdo;
+use Entity\Artist;
+use Entity\Exception\EntityNotFoundException;
 use Html\WebPage;
 
-if (isset($_GET['artistId']) && ctype_digit($_GET['artistId'])) {
-    $artistId = intval(preg_replace('@<(.+)[^>]*>.*?@is', '', $_GET['artistId']));
+try {
+    if (isset($_GET['artistId']) && ctype_digit($_GET['artistId'])) {
+        $artistId = intval(preg_replace('@<(.+)[^>]*>.*?@is', '', $_GET['artistId']));
 
-    $webpage = new WebPage();
+        $webpage = new WebPage();
 
-    $pdoArtist = MyPdo::getInstance()->prepare(
-        <<<SQL
-        SELECT *
-        FROM artist
-        WHERE id = ?
-    SQL
-    );
+        $artiste = Artist::findById($artistId);
 
-    $pdoArtist->execute([$artistId]);
+        /*
+        // Si la première ligne n'est pas présente : ERREUR 404
+        if (!isset($ligne['name'])) {
+            http_response_code(404);
+            header('Location: http://localhost:8000/index.php', true, 302);
+            exit;
+        }
+        */
 
-    $pdoAlbum = MyPdo::getInstance()->prepare(
-        <<<SQL
-        SELECT *
-        FROM album
-        WHERE artistId IN (SELECT id
-                           FROM artist
-                           WHERE id = ?)
-        ORDER BY year DESC, name
-    SQL
-    );
+        // On affecte le nom de l'artiste à une variable
+        $nomArtiste = $artiste->getName();
+        $listeAlbums = $artiste->getAlbums();
 
-    $pdoAlbum->execute([$artistId]);
+        // Titre
+        $webpage->setTitle($webpage->escapeString("Albums de $nomArtiste"));
 
-    $ligne = $pdoArtist->fetch();
-    if (!isset($ligne['name'])) {
-        http_response_code(404);
+        // H1
+        $webpage->appendContent("<h1>{$webpage->escapeString("Albums de $nomArtiste")}</h1>");
+
+
+        // Ecriture des albums dans la page
+        foreach ($listeAlbums as $album) {
+            $webpage->appendContent("<p>{$webpage->escapeString("{$album->getYear()} {$album->getName()}")}\n");
+        }
+
+        echo $webpage->toHTML();
+    } else {
         header('Location: http://localhost:8000/index.php', true, 302);
         exit;
     }
-    $nomArtiste = $ligne['name'];
-
-    $webpage->setTitle($webpage->escapeString("Albums de $nomArtiste"));
-    $webpage->appendContent("<h1>{$webpage->escapeString("Albums de $nomArtiste")}</h1>");
-
-    while (($ligne = $pdoAlbum->fetch()) !== false) {
-        $webpage->appendContent("<p>{$webpage->escapeString("{$ligne['year']} {$ligne['name']}")}\n");
-    }
-
-    echo $webpage->toHTML();
-
-} else {
+} catch (EntityNotFoundException) {
     header('Location: http://localhost:8000/index.php', true, 302);
     exit;
 }
