@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use Html\WebPage;
+use Html\AppWebPage;
 use Entity\Collection\ArtistCollection;
 use Entity\Artist;
 
-$webpage = new WebPage("Playlist");
+$webpage = new AppWebPage("Playlist");
 
 $collection = new ArtistCollection();
 $listeArtiste = $collection->findAll();
