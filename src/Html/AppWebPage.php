@@ -9,14 +9,14 @@ class AppWebPage extends WebPage
     public function __construct(string $title = "")
     {
         parent::__construct($title);
-        $this->appendCssUrl(realpath(__DIR__ . '/../../src/Html/css/style.css'));
+        $this->appendCssUrl('css/style.css');
     }
 
     public function toHTML(): string
     {
         $html = <<<HTML
         <!DOCTYPE html>
-        <html lang=\"fr\">
+        <html lang='fr'>
         <head>
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>

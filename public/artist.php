@@ -5,13 +5,13 @@ declare(strict_types=1);
 use Database\MyPdo;
 use Entity\Artist;
 use Entity\Exception\EntityNotFoundException;
-use Html\WebPage;
+use Html\AppWebPage;
 
 try {
     if (isset($_GET['artistId']) && ctype_digit($_GET['artistId'])) {
         $artistId = intval(preg_replace('@<(.+)[^>]*>.*?@is', '', $_GET['artistId']));
 
-        $webpage = new WebPage();
+        $webpage = new AppWebPage();
 
         $artiste = Artist::findById($artistId);
 
@@ -31,14 +31,12 @@ try {
         // Titre
         $webpage->setTitle($webpage->escapeString("Albums de $nomArtiste"));
 
-        // H1
-        $webpage->appendContent("<h1>{$webpage->escapeString("Albums de $nomArtiste")}</h1>");
-
-
+        $webpage->appendContent("<ul class='list'>\n");
         // Ecriture des albums dans la page
         foreach ($listeAlbums as $album) {
-            $webpage->appendContent("<p>{$webpage->escapeString("{$album->getYear()} {$album->getName()}")}\n");
+            $webpage->appendContent("<li class='album'><div class='album__year'>{$webpage->escapeString("{$album->getYear()}")}</div><div class='album__name'>{$webpage->escapeString("{$album->getName()}")}</div></li>\n");
         }
+        $webpage->appendContent("</ul>\n");
 
         echo $webpage->toHTML();
     } else {
