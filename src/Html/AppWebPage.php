@@ -9,7 +9,7 @@ class AppWebPage extends WebPage
     public function __construct(string $title = "")
     {
         parent::__construct($title);
-        $this->appendCssUrl("../src/Html/css/style.css");
+        $this->appendCssUrl(realpath(__DIR__ . '/../../src/Html/css/style.css'));
     }
 
     public function toHTML(): string
