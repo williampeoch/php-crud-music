@@ -6,7 +6,7 @@ use Html\AppWebPage;
 use Entity\Collection\ArtistCollection;
 use Entity\Artist;
 
-$webpage = new AppWebPage("Playlist");
+$webpage = new AppWebPage("Artistes");
 
 $collection = new ArtistCollection();
 $listeArtiste = $collection->findAll();

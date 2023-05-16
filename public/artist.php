@@ -7,22 +7,13 @@ use Entity\Artist;
 use Entity\Exception\EntityNotFoundException;
 use Html\AppWebPage;
 
-try {
-    if (isset($_GET['artistId']) && ctype_digit($_GET['artistId'])) {
+if (isset($_GET['artistId']) && ctype_digit($_GET['artistId'])) {
+    try {
         $artistId = intval(preg_replace('@<(.+)[^>]*>.*?@is', '', $_GET['artistId']));
 
         $webpage = new AppWebPage();
 
         $artiste = Artist::findById($artistId);
-
-        /*
-        // Si la première ligne n'est pas présente : ERREUR 404
-        if (!isset($ligne['name'])) {
-            http_response_code(404);
-            header('Location: http://localhost:8000/index.php', true, 302);
-            exit;
-        }
-        */
 
         // On affecte le nom de l'artiste à une variable
         $nomArtiste = $artiste->getName();
@@ -39,11 +30,11 @@ try {
         $webpage->appendContent("</ul>\n");
 
         echo $webpage->toHTML();
-    } else {
-        header('Location: http://localhost:8000/index.php', true, 302);
+    } catch (EntityNotFoundException) {
+        http_response_code(404);
         exit;
     }
-} catch (EntityNotFoundException) {
-    header('Location: http://localhost:8000/index.php', true, 302);
+} else {
+    header('Location: index.php', true, 302);
     exit;
 }

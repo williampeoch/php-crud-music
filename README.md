@@ -63,3 +63,7 @@ Lancer les tests de correction de lignes et ceux de Codeception
 
     composer test
 
+Lancer les tests Browse et nettoyer les fichiers « tests/_output » au préalable :
+
+    composer test:browse
+

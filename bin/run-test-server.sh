@@ -6,9 +6,9 @@ PID=$!
 
 # https://unix.stackexchange.com/a/427133/464332
 # wait on the parent process id
-tail --pid=$PPID -f /dev/null
+#tail --pid=$PPID -f /dev/null
 # Mac (untested)
-# lsof -p $PPID +r 1 &>/dev/null
+lsof -p $PPID +r 1 &>/dev/null
 
 # kill off php web server
 kill -15 -- $PID
