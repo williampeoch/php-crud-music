@@ -32,7 +32,7 @@ class Cover
     {
         $stmt = MyPDO::getInstance()->prepare(
             <<<SQL
-            SELECT id
+            SELECT id, jpeg
             FROM cover
             WHERE id = ?
         SQL
