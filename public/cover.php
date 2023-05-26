@@ -7,11 +7,11 @@ use Entity\Exception\EntityNotFoundException;
 use Entity\Exception\ParameterException;
 
 try {
-    if (!isset($_GET['coverId']) || !ctype_digit(intval($_GET['coverId']))) {
+    if (!isset($_GET['coverId']) || !ctype_digit($_GET['coverId'])) {
         throw new ParameterException('Paramètre "coverId" manquant ou de mauvais type');
     }
 
-    $cover = Cover::findById(intval($_GET['coverId']))->getJpeg();
+    $cover = Cover::findById((int)$_GET['coverId'])->getJpeg();
     header('Content-Type: image/jpeg');
     echo $cover;
 } catch (ParameterException) {

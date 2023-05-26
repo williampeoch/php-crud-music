@@ -25,7 +25,8 @@ if (isset($_GET['artistId']) && ctype_digit($_GET['artistId'])) {
         $webpage->appendContent("<ul class='list'>\n");
         // Ecriture des albums dans la page
         foreach ($listeAlbums as $album) {
-            $webpage->appendContent("<li class='album'><div class='album__year'>{$webpage->escapeString("{$album->getYear()}")}</div><div class='album__name'>{$webpage->escapeString("{$album->getName()}")}</div></li>\n");
+            $coverId = $album->getCoverId();
+            $webpage->appendContent("<li> <img class='album__cover' src='cover.php?coverId=$coverId'/> <div class='description'><div class='album__year'>{$webpage->escapeString("{$album->getYear()}")}</div><div class='album__name'>{$webpage->escapeString("{$album->getName()}")}</div></div></li>\n");
         }
         $webpage->appendContent("</ul>\n");
 
