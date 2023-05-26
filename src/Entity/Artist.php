@@ -14,6 +14,10 @@ class Artist
     private ?int $id;
     private string $name;
 
+    private function __construct()
+    {
+    }
+
     /**
      * @return int|null
      */
@@ -80,12 +84,54 @@ class Artist
         return $albumsArtiste->findByArtistId($this->id);
     }
 
-    public function delete() : Artist
+    public function delete(): Artist
     {
         //supprimer la ligne correspondante à l'« id » dans la base de données
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            DELETE FROM artist
+            WHERE id = ?
+        SQL
+        );
+        $stmt->execute([$this->id]);
         //mettre « null » dans la propriété « id » de l'instance
         $this->id = null;
         //retourner l'instance courante pour permettre le chaînage des méthodes
         return $this;
+    }
+
+    protected function update(): Artist
+    {
+        //mettre à jour le « name » de la table « artist » pour la ligne dont l'« id » est celui de l'instance courante
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            UPDATE artist
+            SET name = :nom
+            WHERE id = :id
+        SQL
+        );
+        $stmt->execute([':nom' => $this->name,
+                        ':id' => $this->id]);
+
+        return $this;
+    }
+
+    protected function insert() : Artist
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            INSERT INTO artist
+            VALUES ($this->)
+        SQL
+
+        )
+    }
+
+    public static function create(string $name, ?int $id = null): Artist
+    {
+        $artiste = new Artist();
+        $artiste->setId($id);
+        $artiste->setName($name);
+        return $artiste;
     }
 }
