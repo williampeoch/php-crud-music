@@ -100,6 +100,16 @@ class Artist
         return $this;
     }
 
+    public function save(): Artist
+    {
+        if ($this->id == null) {
+            $this->insert();
+        } else {
+            $this->update();
+        }
+        return $this;
+    }
+
     protected function update(): Artist
     {
         //mettre à jour le « name » de la table « artist » pour la ligne dont l'« id » est celui de l'instance courante
@@ -116,16 +126,21 @@ class Artist
         return $this;
     }
 
-    protected function insert() : Artist
+    protected function insert(): Artist
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
             INSERT INTO artist
-            VALUES ($this->)
+            VALUES ()
         SQL
+        );
+        $stmt->execute([':id' => $this->id,
+                        ':name' => $this->name]);
 
-        )
+        return $this;
     }
+
+
 
     public static function create(string $name, ?int $id = null): Artist
     {
