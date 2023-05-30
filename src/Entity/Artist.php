@@ -130,14 +130,12 @@ class Artist
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
-        INSERT INTO artist (id, name)
-        VALUES (:id, :name)
+        INSERT INTO artist (name)
+        VALUES (:name)
     SQL
         );
-        $stmt->execute([
-            ':id' => $this->id,
-            ':name' => $this->name
-        ]);
+        $stmt->execute([':name' => $this->name]);
+        $this->id = (int)MyPdo::getInstance()->lastInsertId();
 
         return $this;
     }
